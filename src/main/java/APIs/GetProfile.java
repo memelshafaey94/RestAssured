@@ -96,5 +96,6 @@ public class GetProfile {
 
     public void setException(String exception) {
         this.Exception = exception;
+        System.out.println();
     }
 }
