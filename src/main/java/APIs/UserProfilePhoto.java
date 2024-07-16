@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class UserProfilePhoto {
 
     @JsonProperty("Id")
-    private int Id;
+    private String Id;
 
     @JsonProperty("UniqueId")
     private String UniqueId;
@@ -29,11 +29,11 @@ public class UserProfilePhoto {
     @JsonProperty("Path")
     private String Path;
 
-    public int getId() {
+    public String getId() {
         return this.Id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.Id = id;
     }
 

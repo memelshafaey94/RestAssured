@@ -58,7 +58,41 @@ public class SP_Login {
         GetProfile gp = given().header("Authorization", SP_Token)
                 .when().log().all()
                 .get("https://qcapi.anma.edu.sa/Api/BeneficiaryUser/GetUser").as(GetProfile.class);
-        System.out.println(gp.getData().getFirstName());
+        System.out.println(gp.getData().getFirstNameAr());
+
+
+
+    }
+
+    @Test
+    public void BenfuserReg() {                                   // This function for beneficary user regestration only
+        BeneficiaryRegs userProfile = new BeneficiaryRegs();
+        userProfile.setMobileNumber("056610561");                 // change the mobile No.
+        userProfile.setPhoneKeyId(1);
+        userProfile.setUserClassificationId(1);
+        userProfile.setEmail("klm02@grr.la");                      // change the Email
+        userProfile.setUserName("veklm54");                        // change the username
+        userProfile.setPassword("Ahmed50#");
+        userProfile.setFirstNameAr("تست");
+        userProfile.setMiddleNameAr("تست");
+        userProfile.setLastNameAr("تست");
+        userProfile.setFirstNameEn("Gwendolyn");
+        userProfile.setMiddleNameEn("Madonna");
+        userProfile.setLastNameEn("Castaneda");
+        userProfile.setNationalID("75005560577");                  // change the National ID
+        userProfile.setGender("Male");
+        userProfile.setResidenceCountryId(1);
+        userProfile.setCityId(2);
+        userProfile.setDistrict("Nozha");
+        userProfile.setEducationLevelId(7);
+        userProfile.setStreet("6");
+        userProfile.setBuildingNo("4");
+        userProfile.setOccupation("test test 05");
+        RestAssured.baseURI = "https://qcapi.anma.edu.sa/Api";
+        String response = given().header("Content-Type", "Application/json").body(userProfile)
+                .when().log().all().post("/WebUserAuth/BeneficiarySignup")
+                .then().assertThat().statusCode(200).extract().response().asString();
+System.out.println(response);
 
 
     }
