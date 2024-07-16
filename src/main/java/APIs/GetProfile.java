@@ -1,9 +1,9 @@
 package APIs;
-
-
 import com.fasterxml.jackson.annotation.JsonProperty;
-
+import org.testng.annotations.Test;
 import java.util.List;
+
+import static io.restassured.RestAssured.given;
 
 public class GetProfile {
 
@@ -30,9 +30,6 @@ public class GetProfile {
 
     @JsonProperty("Exception")
     private String Exception;
-
-
-
 
     public String getTotal() {
         return Total;
@@ -66,9 +63,7 @@ public class GetProfile {
         this.Filter = filter;
     }
 
-    public UserProfileData getData() {
-        return Data;
-    }
+    public UserProfileData getData() { return Data; }
 
     public void setData(UserProfileData data) {
         this.Data = data;
@@ -97,4 +92,14 @@ public class GetProfile {
     public void setException(String exception) {
         this.Exception = exception;
     }
+
+
+    @Test
+    public void UserProfile(String SP_Token) {
+        GetProfile gp = given().header("Authorization", SP_Token)
+                .when().log().all()
+                .get("https://qcapi.anma.edu.sa/Api/BeneficiaryUser/GetUser").as(GetProfile.class);
+        System.out.println(gp.getData().getFirstNameAr());
+    }
+
 }

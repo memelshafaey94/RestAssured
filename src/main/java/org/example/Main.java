@@ -1,15 +1,19 @@
 package org.example;
-
-
-import APIs.SP_Login;
+import APIs.UserForgetPassword;
+import APIs.UserLogin;
+import APIs.GetProfile;
 
 public class Main {
     public static void main(String[] args) {
-        SP_Login Func1 = new SP_Login();
-        Func1.BenfuserReg();
+        UserLogin Lgn = new UserLogin();
+        GetProfile Gp = new GetProfile();
+        UserForgetPassword f = new UserForgetPassword();
+        f.ForgetPassword();
+        //String tkn = Lgn.Login();
+        //System.out.println(tkn);
+        //Gp.UserProfile(tkn);
+        //Reg.BenfuserReg();
 
-
-       //String result= Func1.ForgetPassword("Test50@grr.la");
 
 
     }
