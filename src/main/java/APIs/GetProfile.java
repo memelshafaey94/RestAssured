@@ -28,6 +28,7 @@ public class GetProfile {
     @JsonProperty("IsSuccess")
     private String IsSuccess;
 
+
     @JsonProperty("Exception")
     private String Exception;
 

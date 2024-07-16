@@ -26,6 +26,7 @@ public class UserProfilePhoto {
     @JsonProperty("FilePath")
     private String FilePath;
 
+
     @JsonProperty("Path")
     private String Path;
 
