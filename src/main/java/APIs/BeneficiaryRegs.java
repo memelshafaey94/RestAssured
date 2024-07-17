@@ -1,6 +1,11 @@
 package APIs;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.restassured.RestAssured;
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.builder.ResponseSpecBuilder;
+import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
+import io.restassured.specification.ResponseSpecification;
 import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.given;
@@ -71,6 +76,11 @@ public class BeneficiaryRegs {
         @JsonProperty("MiddleNameEn")
         private String middleNameEn;
 
+
+    RequestSpecification bldr = new RequestSpecBuilder().setBaseUri("https://qcapi.anma.edu.sa/Api").setContentType("Application/json").build();
+
+    ResponseSpecification respspec = new ResponseSpecBuilder().expectStatusCode(200).build();
+
         public String getUserName() {
             return this.userName;
         }
@@ -86,7 +96,6 @@ public class BeneficiaryRegs {
         public void setEmail(String email) {
             this.email = email;
         }
-
 
         public String getFirstNameAr() {
             return this.firstNameAr;
@@ -248,11 +257,11 @@ public class BeneficiaryRegs {
     @Test
     public void BenfuserReg() {                                   // This function for beneficary user regestration only
         BeneficiaryRegs userProfile = new BeneficiaryRegs();
-        userProfile.setMobileNumber("056610561");                 // change the mobile No.
+        userProfile.setMobileNumber("051110561");                 // change the mobile No.
         userProfile.setPhoneKeyId(1);
         userProfile.setUserClassificationId(1);
-        userProfile.setEmail("klm02@grr.la");                      // change the Email
-        userProfile.setUserName("veklm54");                        // change the username
+        userProfile.setEmail("klm03@grr.la");                      // change the Email
+        userProfile.setUserName("veklm55");                        // change the username
         userProfile.setPassword("Ahmed50#");
         userProfile.setFirstNameAr("تست");
         userProfile.setMiddleNameAr("تست");
@@ -260,7 +269,7 @@ public class BeneficiaryRegs {
         userProfile.setFirstNameEn("Gwendolyn");
         userProfile.setMiddleNameEn("Madonna");
         userProfile.setLastNameEn("Castaneda");
-        userProfile.setNationalID("75005560577");                  // change the National ID
+        userProfile.setNationalID("75765567577");                  // change the National ID
         userProfile.setGender("Male");
         userProfile.setResidenceCountryId(1);
         userProfile.setCityId(2);
@@ -269,13 +278,13 @@ public class BeneficiaryRegs {
         userProfile.setStreet("6");
         userProfile.setBuildingNo("4");
         userProfile.setOccupation("test test 05");
-        RestAssured.baseURI = "https://qcapi.anma.edu.sa/Api";
-        String response = given().header("Content-Type", "Application/json").body(userProfile)
-                .when().log().all().post("/WebUserAuth/BeneficiarySignup")
-                .then().assertThat().statusCode(400).extract().response().asString();
+
+        RequestSpecification res = given().spec(bldr).body(userProfile);
+        Response r =  res.when().post("/WebUserAuth/BeneficiarySignup")
+                .then().spec(respspec).extract().response();
+
+        String response =r.asPrettyString();
         System.out.println(response);
-
-
     }
 
 }
